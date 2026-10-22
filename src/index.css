@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* 移动端专属 · 现代日系极简 · 哆啦A梦色彩意向 (Mobile-First Doraemon Aesthetic) */
+@theme {
+  --color-dora-sky: #0ea5e9;
+  --color-dora-deepsky: #0284c7;
+  --color-dora-bell: #fbbf24;
+  --color-dora-collar: #fb7185;
+
+  --color-campus-50: #f0f9ff;
+  --color-campus-100: #e0f2fe;
+  --color-campus-200: #bae6fd;
+  --color-campus-300: #7dd3fc;
+  --color-campus-400: #38bdf8;
+  --color-campus-500: #0ea5e9;
+  --color-campus-600: #0284c7;
+  --color-campus-700: #0369a1;
+  --color-campus-800: #075985;
+  --color-campus-900: #0c4a6e;
+  --color-campus-950: #082f49;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, system-ui, sans-serif;
+
+  --animate-slide-up: sheet-up 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float-up: float-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  --animate-bell-ring: bell-ring 2.5s ease-in-out infinite;
+
+  @keyframes sheet-up {
+    from { transform: translateY(100%); opacity: 0.8; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes float-up {
+    0% { transform: translateY(12px) scale(0.85); opacity: 0; }
+    20% { transform: translateY(0) scale(1.08); opacity: 1; }
+    80% { transform: translateY(-24px) scale(1); opacity: 1; }
+    100% { transform: translateY(-44px) scale(0.95); opacity: 0; }
+  }
+
+  @keyframes bell-ring {
+    0%, 100% { transform: rotate(0deg); }
+    15% { transform: rotate(14deg); }
+    30% { transform: rotate(-12deg); }
+    45% { transform: rotate(8deg); }
+    60% { transform: rotate(-6deg); }
+    75% { transform: rotate(0deg); }
+  }
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #f8fafc;
+  scroll-behavior: smooth;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  @apply text-slate-700 antialiased font-sans selection:bg-sky-100 selection:text-sky-700;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+/* ---------- 原生 <dialog> 纯底部抽屉 (Bottom Sheet) ---------- */
+dialog.sheet {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: 30rem;
+  max-height: 90dvh;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 0;
+  border-radius: 2rem 2rem 0 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 -16px 48px -12px rgba(14, 165, 233, 0.12), 0 -4px 16px rgba(0, 0, 0, 0.03);
+  color: inherit;
+  outline: none;
+  overscroll-behavior: contain;
+}
+dialog.sheet[open] {
+  animation: var(--animate-slide-up);
+}
+
+/* 遮罩层 */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ---------- 滚动与手势工具 ---------- */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+}
+
+/* iPhone 刘海与底部小黑条手势避让安全区 */
+.pt-safe {
+  padding-top: max(env(safe-area-inset-top), 0.75rem);
+}
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+}
+.pb-dock {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6.25rem);
+}
+
+/* 四次元口袋造型半圆弧 */
+.pocket-curve {
+  border-bottom-left-radius: 46% 32%;
+  border-bottom-right-radius: 46% 32%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
